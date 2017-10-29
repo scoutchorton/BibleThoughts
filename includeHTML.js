@@ -1,3 +1,1 @@
-function includeHTML(){
-    $( "#menuID" ).load( "https://scoutchorton.github.io/nav.html" );
-}
+$( "#menuID" ).load( "https://scoutchorton.github.io/nav.html" );

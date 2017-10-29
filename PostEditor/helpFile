@@ -2,11 +2,32 @@ PostEditor HelpFile
     Version 1.0
     scoutchorton
 
+Guide:
+    Commands are listed after the prompt sign:
+        <: command args
+            <: - prompt sign
+            command - command
+            args - arguments
+
+    Arguments have different types:
+        <: command <args> {args} or <: command [args] {args}
+            <args> - essential arguements, and will throw err102 if not provided
+            [args] - nonessential arguments, but will throw err103 if incorrectly provided
+            {args} - additional arguments to supply the argument before, and will throw err104 if not acceptable
+
 Commands:
     help
-        Usage:
-            <: help
-        Function:
-            Displays this menu
+    Usage:
+        <: help
+    Function:
+        Displays this menu
 
-    
+    posts
+    Usage:
+        <: posts <args>
+    Arguments:
+        refresh
+        Usage:
+            <: posts refresh
+        Function:
+            Refresh list of posts from 'posts' file

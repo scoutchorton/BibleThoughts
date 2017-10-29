@@ -1,34 +1,22 @@
-#Intro
-print "BibleThoughts PostEditor"
+#Version
 version = 1.0
-print "scoutchorton - 2017"
-print "Type 'help' to read the help file to get commands if you get stuck."
 
 #Imports
 from os import system
 from time import sleep
 
 #Variables
-global postsFile
-global posts
-global postID
-global errorFile
-global errorDict
+postsFile = None
+posts = None
+postID = None
+errorFile = None
+errorDict = None
 
 #Referesh posts
 def refPosts():
     postsFile = open('posts', 'w+')
     posts = eval(postsFile.read())
     postID = max(posts.keys())
-
-#Startup
-def boot():
-    print "Starting PostEditor v. " + str(version)
-    print "Initiating posts..."
-    refPosts()
-    print "Loading error dictonary..."
-    errorFile = open('errors', 'r')
-    errorDict = errorFile.read()
 
 #Close
 def exitFunction():
@@ -39,23 +27,43 @@ def exitFunction():
     exit()
 
 #Prompt eroors
-def
+def throwError(erID):
+    print "Err" + str(erID) + " " + errorDict[erID][0] + ": " + errorDict[erID][1]
 
 #Main prompt function
 def prompt():
     p = raw_input("<: ").lower().split(" ")
-    print p
-    sleep(2)
     if p[0] == "help":
         system("cat helpFile | less")
     elif p[0] =="exit":
         exitFunction()
     elif p[0] == "posts":
-         if len(p) == 0:
-             print "Command 'posts'"
+        if len(p) == 1:
+            throwError(102)
+        elif p[1] == "refresh":
+            print "Refreshing list of posts..."
+        elif p[1] == "new":
+            pass #Work on this...
+        else:
+            throwError(103)
     else:
-        print "Command not recognized. Retype the command, or enter 'help' to view commands."
+        throwError(101)
     prompt()
 
-#Run the program
-prompt()
+#Startup
+def boot():
+    global errorDict
+    print "Booting..."
+    print "Initiating posts..."
+    #refPosts()
+    print "Loading error dictonary..."
+    errorFile = open('errors', 'r')
+    errorDict = eval(errorFile.read())
+    print "Finished init. Starting PostEditor v. " + str(version) + "..."
+    print "\n\n\nBibleThoughts PostEditor"
+    print "scoutchorton - 2017"
+    print "Type 'help' to read the help file to get commands if you get stuck."
+    prompt()
+
+#Start
+boot()

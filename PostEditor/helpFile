@@ -1,0 +1,12 @@
+PostEditor HelpFile
+    Version 1.0
+    scoutchorton
+
+Commands:
+    help
+        Usage:
+            <: help
+        Function:
+            Displays this menu
+
+    

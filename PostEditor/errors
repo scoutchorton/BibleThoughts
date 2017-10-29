@@ -1,0 +1,4 @@
+{000:["errorType", "Error description, and recommended fix."],
+101:["commandError", "Command not recognized. Retype the command, or enter 'help' to view commands."],
+102:["commandError", "Not enough arguments supplied. Enter 'help' to view the arguments for all the commands."],
+}

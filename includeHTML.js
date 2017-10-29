@@ -1,3 +1,3 @@
-var includeHTML = function(){
+function includeHTML(){
     $( "#menuID" ).load( "https://scoutchorton.github.io/nav.html" );
 }

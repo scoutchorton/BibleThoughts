@@ -31,3 +31,21 @@ Commands:
             <: posts refresh
         Function:
             Refresh list of posts from 'posts' file
+
+        new
+        Usage:
+            <: posts new
+        Function:
+            Add new post to pending posts
+
+        apply
+        Usage:
+            <: posts apply
+        Function:
+            Push pending posts to file
+
+        list
+        Usage:
+            <: posts list
+        Function:
+            List all posts, pending and on file.

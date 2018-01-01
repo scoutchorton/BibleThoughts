@@ -12,3 +12,16 @@
 	font-size: 12px;
 	margin: 10px;
 }
+#pageNav {
+	dispaly: block;
+	width: 100%;
+	background: #5E2750;
+}
+#pageNav > a {
+    background: #5E2750;
+    color: #E95420;
+}
+#pageNav > a:hover {
+    background: #E95420;
+    color: #5E2750;
+}

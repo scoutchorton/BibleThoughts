@@ -12,6 +12,9 @@
 	font-size: 12px;
 	margin: 10px;
 }
+hr {
+	margin: 25px;
+}
 #pageNav {
 	dispaly: block;
 	width: 100%;

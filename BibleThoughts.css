@@ -19,6 +19,8 @@ hr {
 	dispaly: block;
 	width: 100%;
 	background: #E95420;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 #pageNav > a {
     color: #5E2750;

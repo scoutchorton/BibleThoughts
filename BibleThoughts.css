@@ -18,13 +18,14 @@ hr {
 #pageNav {
 	dispaly: block;
 	width: 100%;
-	background: #5E2750;
+	background: #E95420;
 }
 #pageNav > a {
-    background: #5E2750;
-    color: #E95420;
+    color: #5E2750;
+    background: #E95420;
+	margin: 5px;
 }
 #pageNav > a:hover {
-    background: #E95420;
-    color: #5E2750;
+    color: #E95420;
+    background: #5E2750;
 }

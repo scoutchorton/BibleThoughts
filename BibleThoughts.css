@@ -25,7 +25,7 @@ hr {
 #pageNav > a {
     color: #5E2750;
     background: #E95420;
-	margin: 5px;
+	padding: 5px;
 	text-decoration: none;
 }
 #pageNav > a:hover {

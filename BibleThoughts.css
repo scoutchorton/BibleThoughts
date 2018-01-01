@@ -1,14 +1,14 @@
 .postTitle {
-	padding: 2px;
+	margin: 5px;
 	text-align: left;
 }
 .date {
 	color: grey;
 	font-style: italic;
-	padding: 2px;
+	margin: 5px;
 	text-align: left;
 }
 .postMessage {
 	font-size: 12px;
-	padding: 3px;
+	margin: 10px;
 }

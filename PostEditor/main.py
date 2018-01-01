@@ -70,7 +70,7 @@ def postsPublish():
 	print "Closing posts.html..."
 	htmlPosts.close()
 	raw_input("About to run Github commit for posts. Press enter to continue: ")
-	system("cd ..; pwd; git init; git add posts.html; git commit -m \"Posts updated.\"; git push")
+	system("cd ..; pwd; git init; git add PostEditor/posts; git add posts.html; git commit -m \"Posts updated.\"; git push")
 	print "Posts updated!"
 
 #Close

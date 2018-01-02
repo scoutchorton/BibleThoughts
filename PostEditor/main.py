@@ -124,6 +124,7 @@ def prompt():
 
 #Startup
 def boot():
+	system("clear")
 	global filesToClose
 	global errorFile
 	global errorDict

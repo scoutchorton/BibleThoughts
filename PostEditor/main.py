@@ -43,6 +43,7 @@ def newPost():
 	if approve != "":
 		newPost()
 	else:
+		messa = messa.replace('\n', '<br />')
 		posts[postID+1] = [name, postDate, messa]
 		postsPend += 1
 

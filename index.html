@@ -23,15 +23,6 @@
 		    messagingSenderId: "608313227028"
   		};
 		firebase.initializeApp(config);
-		var database = firebase.database();
-		function writeUserData() {
-  			firebase.database().ref('users/' + 04253).set({
-    			username: "Caleb Horton",
-    			email: "scoutchorton@gmail.com",
-    			profile_picture : "https://scoutchorton.github.io/scoutcicon.png",
-  			});
-		}
-		writeUserData()
 	</script>
 </head>
 <body>

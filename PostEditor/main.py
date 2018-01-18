@@ -62,10 +62,11 @@ def postsApply():
 def postsPublish():
 	print "Opening posts.html..."
 	htmlPosts = open('../posts.html', 'w')
-	tempText = "<link rel=\"stylesheet\" type=\"text/css\" href=\"./BibleThoughts.css\" />\n"
+	tempText = "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://scoutchorton.github.io/BibleThoughts/BibleThoughts.css\"><table id=\"postsTable\">\n"
 	print "Generating HTML from posts..."
 	for i in list(reversed(sorted(posts.keys()))):
-		tempText = tempText + "<h2 class=\"postTitle\">" + posts[i][0] + "</h2>\n<h5 class=\"date\">" +  posts[i][1] + "</h5>\n<span class=\"postMessage\">" +  posts[i][2] + "</span>\n<hr/>\n"
+		tempText = tempText + "<tr><td class=\"postsHeadings\"><h2 id=\"" + str(i) + "\" class=\"postTitle\">" + posts[i][0] + "</h2><h5 class=\"date\">" + posts[i][1] + "</h5></td><td class=\"postMessage\">" + posts[i][2] + "</tr>"
+	tempText = tempText + "</table>"
 	print "Writing HTML to posts.html..."
 	htmlPosts.write(tempText)
 	print "Closing posts.html..."

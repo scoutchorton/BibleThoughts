@@ -11,6 +11,7 @@
 .postMessage {
 	font-size: 12px;
 	margin: 10px;
+	padding-top: 10px;
 }
 hr {
 	margin: 25px;
@@ -31,4 +32,18 @@ hr {
 #pageNav > a:hover {
     color: #E95420;
     background: #5E2750;
+}
+
+#postsTable {
+    width: 100%;
+}
+
+#postsTable > tr {
+    width: 100%;
+    height: 100%;
+}
+
+.postsHeadings {
+    vertical-align: top;
+    width: 20%;
 }

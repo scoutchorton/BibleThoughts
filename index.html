@@ -1,32 +1,24 @@
 <head>
     <title>Teen Bible Thoughts</title>
-    <link rel="stylesheet" type="text/css" href="../styles.css" />
-	<link rel="stylesheet" type="text/css" href="./BibleThoughts.css" />
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="icon" href="https://scoutchorton.github.io/scoutcicon.png" type="image/png">
-	<!-- Test for Firebase -->
+    <link rel="stylesheet" type="text/css" href="https://scoutchorton.github.io/styles.css" />
+	<link rel="stylesheet" type="text/css" href="https://scoutchorton.github.io/BibleThoughts/BibleThoughts.css" />
+	<script src="https://www.w3schools.com/lib/w3.js"></script>
+    <link rel="icon" href="https://scoutchorton.github.io/scoutcicon.png" type="image/png" />
+	<!-- Firebase Start -->
 	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-database.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-firestore.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-messaging.js"></script>
-	<script>
-	  	// Initialize Firebase
-	  	var config = {
-		    apiKey: "AIzaSyC0q4W7LycPoJJQ7d6iluAyDxg5iNS3Jx4",
-		    authDomain: "github-page-demo.firebaseapp.com",
-		    databaseURL: "https://github-page-demo.firebaseio.com",
-		    projectId: "github-page-demo",
-		    storageBucket: "github-page-demo.appspot.com",
-		    messagingSenderId: "608313227028"
-  		};
-		firebase.initializeApp(config);
-	</script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-messaging.js"></script>
+    <!-- Firebase End  -->
+    <!-- Firebase Scripts Start -->
+    <script src="https://scoutchorton.github.io/firebase/firebaseTools.js"></script>
+    <!-- firebase Scripts End -->
 </head>
 <body>
-    <div w3-include-html="../nav.html"></div>
+	<p style="display: none;" id="fbHits"></p>
+    <iframe id="menuFrame" src="https://scoutchorton.github.io/nav.html"></iframe>
     <center>
         <div class="page">
 			<h3>Teen Bible Thoughts</h3>
@@ -37,15 +29,11 @@
 			</div>
 			<div w3-include-html="./posts.html"></div>
         </div>
-    </center>
-    <script>
-        w3.includeHTML();
-    </script>
-	<!--
+	</center>
 	<script>
-		var database = firebase.database();
-		var currentHits = database.ref('hits').once('value', function(snapshot) { return snapshot.val()); };
-		
+		w3.includeHTML();
 	</script>
-	-->
+	<script>
+		setTimeout(function(){updateHits("biblethoughts")}, 2500);
+	</script>
 </body>

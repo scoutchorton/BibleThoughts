@@ -1,0 +1,27 @@
+<head>
+	<!--Firebase Start-->
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+	<!--Firebase End-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link href="./styles.css" rel="stylesheet">
+	<script src="../scripts.js"></script>
+	<script>
+		function fade(id,text,color){if(!text){text="Placeholder text."}eId(id).innerHTML=text;if(!color){color="grey"}eId(id).style.color=color;eId(id).classList.add('fdIn');setTimeout(function(){eId(id).classList.remove('fdIn');},3750);}
+		function saveS(){var d={};var s=[false,false];d['displayName']=eId('uName').value;firebase.auth().currentUser.updateProfile(d).then(function(){s[0]=true;});firebase.database().ref('/BibleThoughts/admins/'+firebase.auth().currentUser.uid).set(eId('dName').value).then(function(){s[1]=true;});fade('updText','Working...','#cfcf00');setTimeout(function(){if(s[0]&&s[1]){fade('updText','Settings updated.','green');}else{console.log("Username: "+s[0]);console.log("Display name: "+s[1]);fade('updText','Error updating settings.','red');}},5000);}
+	</script>
+</head>
+<body>
+	<div id="aData"></div>
+	<ul>
+		<li id="actionBar"><h3>Settings:</h3><p id="updText" class="fdOut">Settings updated.</p><button id="save" onclick="saveS()"><i class="material-icons">save</i><div>Save</div></button></li>
+		<li id="userName"><label for="uName">Username: </label><input id="uName" type="text"/></li>
+		<li id="displayName"><label for="dName">Display name: </label><input id="dName" type="text"/></li>
+	</ul>
+	<script>
+		firebase.database().ref().child("/BibleThoughts/admins").on('value',function(s){eId("aData").innerHTML=JSON.stringify(s.val());firebase.auth().onAuthStateChanged(function(u){if(u){eId('uName').value=u.displayName;eId('dName').value=s.val()[u.uid];}});});
+	</script>
+</body>

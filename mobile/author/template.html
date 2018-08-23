@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<script>
+			screen.orientation.lock('portriat');
+		</script>
+		<!--Firebase Start-->
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+		<!--Firebase End-->
+		<!--Web App Start-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta id="isWebApp" name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="BibleThoughts Mobile" />
+		<link rel="apple-touch-icon" href="../mobileIcon.png" />
+		<!--Web App End-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	        <link rel="icon" href="../../mobileIcon.png" type="image/png">
+		<link href="./styles.css" rel="stylesheet">
+		<script src="./scripts.js"></script>
+		<title>BibleThoughts</title>
+	</head>
+	<body>
+		<div id="top">
+			<i class="material-icons" onclick="document.getElementById('nav').classList.toggle('onscreen')">menu</i><span>AuthorHub~?user?</span>
+		</div><script>firebase.auth().onAuthStateChanged(function(user){if(user){eId('top').childNodes[2].innerHTML=eId('top').childNodes[2].innerHTML.replace("?user?",firebase.auth().currentUser.displayName);}else{eId('top').childNodes[2].innerHTML="Logging out...";window.location.href="./login/login.html";}});</script><!--
+		--><div id="nav" class="offscreen">
+			<ul>
+				<a href="../m.html"><li>Main Page</li></a>
+				<li onclick="setFrame('./posts/posts.html')">Posts</li>
+				<li onclick="setFrame('./settings/settings.html')">Settings</li>
+				<li id="logout">Log out</li>
+			</ul>
+		</div><div id="workspace">
+			<iframe id="wkspFrame"></iframe>
+		</div>
+		<script>eId('wkspFrame').contentWindow.document.head.innerHTML="<link href=\"https://fonts.googleapis.com/css?family=Ubuntu+Condensed\" rel=\"stylesheet\">";eId('wkspFrame').contentWindow.document.body.innerHTML="<span style=\"font-size:1.5em;font-family:'Ubuntu Condensed',cursive,sans-serif;\">Please select option in menu.</span>";</script>
+	</body>
+</html>

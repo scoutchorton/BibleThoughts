@@ -1,39 +1,44 @@
-<head>
-    <title>Teen Bible Thoughts</title>
-    <link rel="stylesheet" type="text/css" href="https://scoutchorton.github.io/styles.css" />
-	<link rel="stylesheet" type="text/css" href="https://scoutchorton.github.io/BibleThoughts/BibleThoughts.css" />
-	<script src="https://www.w3schools.com/lib/w3.js"></script>
-    <link rel="icon" href="https://scoutchorton.github.io/scoutcicon.png" type="image/png" />
-	<!-- Firebase Start -->
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-messaging.js"></script>
-    <!-- Firebase End  -->
-    <!-- Firebase Scripts Start -->
-    <script src="https://scoutchorton.github.io/firebase/firebaseTools.js"></script>
-    <!-- firebase Scripts End -->
-</head>
-<body>
-	<p style="display: none;" id="fbHits"></p>
-    <iframe id="menuFrame" src="https://scoutchorton.github.io/nav.html"></iframe>
-    <center>
-        <div class="page">
-			<h3>Teen Bible Thoughts</h3>
-			<div id="pageNav">
-				<a href="./about.html">About</a>
-				<a href="./index.html">Feed</a>
-				<a href="./author.html">Author</a>
+<html>
+	<head>
+		<script>if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){location.replace('./mobile/m.html')}</script>
+		<!--Firebase Start-->
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+		<!--Firebase End-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<link href="./styles.css" rel="stylesheet">
+		<script src="./scripts.js"></script>
+		<link rel="icon" href="./mobileIcon.png" type="image/png">
+		<title>BibleThoughts</title>
+	</head>
+	<body>
+		<div id="aData"></div>
+		<div id="fbData"></div>
+		<div id="page">
+			<div id="header">
+				<h3>BibleThoughts</h3><a  href="./author/login.html"><div id="admin">Editor Login</div></a>
+				<!--<ul id="nav">
+					<li class="navSpacer">:<li>
+					<li class="navOption">All</li>
+					<li class="navSpacer">:<li>
+					<li class="navOption">Anna</li>
+					<li class="navSpacer">:<li>
+					<li class="navOption">Caleb</li>
+					<li class="navSpacer">:<li>
+					<li class="navOption">Daniel</li>
+					<li class="navSpacer">:<li>
+					<li class="navOption">Jordan</li>
+					<li class="navSpacer">:<li>
+					<li class="navOption">Molly</li>
+					<li class="navSpacer">:<li>
+					<li class="navOption">Noah</li>
+					<li class="navSpacer">:<li>
+				</ul>-->
 			</div>
-			<div w3-include-html="./posts.html"></div>
-        </div>
-	</center>
-	<script>
-		w3.includeHTML();
-	</script>
-	<script>
-		setTimeout(function(){updateHits("biblethoughts")}, 2500);
-	</script>
-</body>
+			<div id="posts">Loading posts...<div>
+		</div>
+	</body>
+</html>

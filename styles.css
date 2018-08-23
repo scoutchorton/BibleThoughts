@@ -1,0 +1,85 @@
+:root {
+	--ora: #e95420;
+	--amb: #5e2750;
+}
+
+body {
+	margin: 0;
+	background: var(--ora);
+	color: var(--amb);
+	font-family: "Ubuntu", cursive, sans-serif;
+}
+
+#page {
+	margin-left: 1%;
+	width: 98%;
+	background: #ffffff;
+	color: var(--amb);
+}
+#fbData, #aData {
+	display: none;
+}
+
+#header {
+	display: block;
+	padding: 1%;
+	padding-bottom: 0;
+}
+#header h3 {
+	display: inline-block;
+	margin: 0;
+}
+#admin {
+	display: inline-block;
+	float: right;
+	padding: 5px;
+	color: var(--amb);
+	background: initial;
+}
+#admin:hover {
+	color: var(--ora);
+	background: var(--amb);
+}
+#nav {
+	background: var(--ora);
+}
+#nav li {
+	list-style-type: none;
+	display: inline-block;
+}
+
+.navOption {
+	color: var(--amb);
+	background: var(--ora);
+	padding: 1px;
+	margin: 2px;
+}
+.navOption:hover {
+	color: var(--ora);
+	background: var(--amb);
+}
+.navSpacer {
+	margin: 0 5px;
+}
+
+#posts {
+	padding: 1%;
+}
+.post {
+	border: 1px solid var(--amb);
+	margin: 1px 0;
+}
+.post h2 {
+	display: inline-block;
+	margin: 5px;
+}
+.post h4 {
+	color: grey;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 5px;
+}
+.post p {
+	margin: 5px;
+	margin-left: 25px;
+}

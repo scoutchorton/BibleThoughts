@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<!--Firebase Start-->
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+		<!--Firebase End-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<!--<link href="./styles.css" rel="stylesheet">-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<link rel="icon" href="../../../mobileIcon.png" type="image/png">
+		<style>
+			body{margin: 0;font-family:"Ubuntu",cursive,sans-serif;text-align:center;}
+			#aData{display:none;}
+			h1{
+				padding:25px 0;
+				font-size: 1.75em;
+			}
+			#spacer{height:22.5%;font-style:italic;width:75%;margin-left:auto;margin-right:auto;color:#ff6666;}
+			#email{margin-top:25%;}
+			#email:invalid{box-shadow: 0 0 5px 4px #ffcccc;background:#ffcccc;}
+			input{
+				font-family:"Ubuntu",cursive,sans-serif;
+				text-align:center;
+				font-size:1.2em;
+				display:block;
+				margin:25px auto;
+				-webkit-appearance: none;
+				box-shadow:0 0 5px 4px #dfdfdf;
+				background:#dfdfdf;
+				border:none;
+			}
+			#loginButton:hover,#mainPageButton:hover{-webkit-appearance: none;box-shadow: 0 0 5px 4px #bbbbbb;background:#bbbbbb;}
+			#loginButton:active,#mainPageButton:active{-webkit-appearance: none;box-shadow: 0 0 5px 4px #999999;background:#999999;}
+			#loading{display:none;position:fixed;width:100%;height:100%;z-index:2;background:#aaaaaa88;}
+			#loading>p{font-size:3em;position:relative;top:40%;transform:perspective(0) translateY(-40%);}
+			input:focus{outline: none;}
+			.fdOut{opacity:0;transition:opacity 2.5s cubic-bezier(0, 1, 0.5, 1);}
+			.fdIn{opacity:1;}
+		</style>
+		<script src="./loginScripts.js"></script>
+		<title>Author Login ~ BibleThoughts</title>
+	</head>
+	<body>
+		<div id="aData"></div>
+		<div id="loading"><p>Loading...</p></div>
+		<h1>Author Login</h1>
+		<p id="spacer" class="fdOut"></p>
+		<input id="email" placeholder="Email" type="email"/>
+		<input id="password" placeholder="Password" type="password"/>
+		<input id="loginButton" onclick="signIn()" value="Login" type="button"/ >
+		<input id="mainPageButton" onclick="window.location.href='../../m.html'"value="Return to BibleThoughts" type="button"/ >
+	</body>
+</html>

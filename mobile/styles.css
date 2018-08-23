@@ -1,0 +1,81 @@
+:root{
+	--ora:#e95420;
+	--amb:#5e2750;
+	--gre:#7c7c7c;
+}
+body{
+	margin: 0;
+	background: var(--ora);
+	color: var(--amb);
+	font-family: "Ubuntu", cursive, sans-serif;
+}
+a{text-decoration:none;}
+#fbData, #aData {
+	display: none;
+}
+
+.offscreen{
+	transform:translateX(-100%);
+	transition:transform 1s;
+}
+.onscreen{
+	transform:translateX(0);
+}
+
+#top{
+	background:var(--gre);
+	color:white;
+	width: 100%;
+}
+#top i{font-size:2.75em;vertical-align:middle;}
+#top span{font-size:1.25em;vertical-align:middle;}
+
+#nav{
+	color: white;
+	width: 80%;
+}
+#nav>ul{
+	width: 100%;
+	background: var(--gre);
+	position:absolute;
+	z-index:10;
+	list-style:none;
+	padding:0;
+	margin-bottom:2.5%;
+	font-size:1.5em;
+	-webkit-margin-before:0;
+	-webkit-margin-after:0;
+}
+#nav li{
+	padding:1%;
+	padding-left:5%;
+	border-top:1px solid #858585;
+	color: white;
+}
+#nav li:active{
+	background:white;
+	color:var(--gre);
+}
+#nav a:visited, #nav a:link{
+	color: white;
+}
+
+.post{
+	background: white;
+	margin: 1%;
+	border:1px solid grey;
+	border-radius: 3px;
+}
+.post span{
+	display:block;
+}
+.post span:nth-child(1)/*Title*/{
+	font-size:1.75em;
+}
+.post span:nth-child(2)/*Author*/{
+	font-size:1.2em;
+}
+.post span:nth-child(3)/*Message*/{
+	font-size:1.1em;
+	color:var(--gre);
+}

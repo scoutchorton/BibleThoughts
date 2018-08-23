@@ -1,0 +1,49 @@
+.postTitle {
+	margin: 5px;
+	text-align: left;
+}
+.date {
+	color: grey;
+	font-style: italic;
+	margin: 5px;
+	text-align: left;
+}
+.postMessage {
+	font-size: 12px;
+	margin: 10px;
+	padding-top: 10px;
+}
+hr {
+	margin: 25px;
+}
+#pageNav {
+	dispaly: block;
+	width: 100%;
+	background: #E95420;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#pageNav > a {
+    color: #5E2750;
+    background: #E95420;
+	padding: 5px;
+	text-decoration: none;
+}
+#pageNav > a:hover {
+    color: #E95420;
+    background: #5E2750;
+}
+
+#postsTable {
+    width: 100%;
+}
+
+#postsTable > tr {
+    width: 100%;
+    height: 100%;
+}
+
+.postsHeadings {
+    vertical-align: top;
+    width: 20%;
+}

@@ -1,0 +1,56 @@
+:root{--gre: #afafaf;}
+html{height: 100%;}
+body{margin:0;background:#FFFFFF;color:#FFFFFF;font-family:"Ubuntu", cursive, sans-serif;}
+input:focus{outline: none;}
+#fbData{display:none;}
+
+/*Top bar*/
+#bar{background:#000000;width:100%;height:10%;display:table;vertical-align:middle;}
+#bar a{text-decoration:none;color:#ffffff;}
+#bar h2 {display:table-cell;vertical-align:middle;padding-left:2.5%;float:left;}
+#bar h4 {display:table-cell;vertical-align:middle;padding-right:2.5%;float:right;}
+#logout {display:table-cell;border:none;height:50%;background:#000000;color:#ffffff;float:right;margin:1%;}
+#logout:hover {background:#ffffff;color:#000000;}
+
+/*Menu*/
+#menu {
+	display: inline-block;
+	background: var(--gre);
+	margin: 0;
+	height: 90%;
+	width: 20%;
+	vertical-align: top;
+}
+#menu ul {
+	list-style: none outside none;
+}
+#menu li i {
+	vertical-align: bottom;
+	transition: transform .5s ease-in-out;
+	-ms-transition: -ms-transform .5s ease-in-out;
+	-webkit-transition: -webkit-transform .5s ease-in-out;
+}
+.subMenus:hover > i {
+    transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+.activeSetting {
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+}
+#menu li {
+	margin: 0;
+	padding: 10px;
+	border-bottom: 1px solid grey;
+}
+
+/*Workspace*/
+#workspace {
+	display: inline-block;
+	margin: 0;
+	height: 90%;
+	width: 80%;
+}
+#wkspFrame{border:none;margin:1%;width:98%;height:96%;}

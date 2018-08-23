@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<!--Firebase Start-->
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+		<!--Firebase End-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<link rel="icon" href="../mobileIcon.png" type="image/png">
+		<link href="./styles.css" rel="stylesheet">
+		<script src="./scripts.js"></script>
+		<title>AuthorHub ~ BibleThoughts</title>
+	</head>
+	<body>
+		<div id="fbData"></div>
+		<div id="bar">
+			<h2>AuthorHub ~ <a href="../index.html">BibleThoughts</a></h2>
+			<h4 id="greeting">Welcome, ?user?!</h4>
+			<input id="logout" onclick="c()" value="Logout" type="button"></input>
+			<script>firebase.auth().onAuthStateChanged(function(user){if(user){eId('greeting').innerHTML=eId('greeting').innerHTML.replace("?user?",firebase.auth().currentUser.displayName);}else{eId('greeting').innerHTML="Redirecting to login page...";window.location.href="./login.html";}});</script>
+		</div><div id="menu">
+			<ul>
+				<li onclick="setFrame('./settings/settings.html')"><i id="settings" class="material-icons">chevron_right</i>Settings</li>
+				<li onclick="setFrame('./posts/posts.html')"><i id="posts" class="material-icons">chevron_right</i>Posts
+				</li>
+			</ul>
+		</div><div id="workspace">
+			<iframe id="wkspFrame"></iframe>
+		</div>
+	</body>
+</html>

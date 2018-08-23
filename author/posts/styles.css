@@ -1,0 +1,41 @@
+:root{--gre: #afafaf;}
+body{margin:0;background:#FFFFFF;color:#000000;font-family:"Ubuntu",cursive,sans-serif;}
+
+.fdOut{opacity:0;transition:opacity 1.25s cubic-bezier(0, 1, 0.5, 1);}
+.fdIn{opacity:1;}
+
+ul{list-style:none inside none;padding:0;}
+li{width:100%;}
+#aData{display:none;}
+#btData{display:none;}
+input{font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
+
+#p{width:50%;height:auto;display:inline-block;vertical-align:top;margin:0;border:none;}
+
+#actionBar{overflow:overlay;width:100%;border-bottom:1px solid grey;}
+#actionBar h3{top:-50%;transform:translateY(50%);padding-left:1.5%;float:left;margin:0;}
+#actionBar p{margin:0 0 0 2.5%;float:left;text-align:center;box-sizing: border-box;top:-50%;transform:translateY(50%);color:rgb(0,100,0);}
+#refresh,#create,#savePost{display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;float:right;}
+#refresh:hover,#create:hover{background:#ffffff;color:#000000;}
+#refresh:active,#create:active{border:none;}
+#refresh:focus,#create:focus{outline:none;}
+#refresh div,#create div{display:table-cell;vertical-align:middle;}
+#refresh i,#create i{padding:1%;}
+
+.post{border-bottom:1px solid grey;width:98%;margin-top:1%;margin-left:1%;overflow:overlay;}
+.post span{display:inline-block;vertical-align:middle;}
+.post button{display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;float:right;padding:3px;}
+.post button i{font-size:16px;padding:1px;vertical-align:middle;}
+.post button:hover{background:#ffffff;color:#000000;}
+.post button:active{border:none;}
+.post button:focus{outline:none;}
+
+#editor{width:50%;height:100%;display:inline-block;border:none;padding:2%;box-sizing: border-box;}
+#editor input,#content{display:block;margin: 4px;box-shadow:0 0 5px 4px #dfdfdf;background:#dfdfdf;border:none;}
+#editor input:focus,#content:focus{outline:none;}
+#content{width:75%;height:75%;resize:none;font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
+#editor button{display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;padding:3px;}
+#editor button i{font-size:16px;padding:1px;vertical-align:middle;}
+#editor button:hover{background:#ffffff;color:#000000;}
+#editor button:active{border:none;}
+#editor button:focus{outline:none;}

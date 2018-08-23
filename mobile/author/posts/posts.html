@@ -1,0 +1,112 @@
+<head>
+	<!--Firebase Start-->
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+	<!--Firebase End-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<link rel="icon" href="../../../mobileIcon.png" type="image/png">
+	<link href="./styles.css" rel="stylesheet">
+	<script src="../scripts.js"></script>
+	<script>
+		function fade(id,text,color){if(!text){text="Placeholder text."}eId(id).innerHTML=text;if(!color){color="grey"}eId(id).style.color=color;eId(id).classList.add('fdIn');setTimeout(function(){eId(id).classList.remove('fdIn');},3750);}
+		function saveP(){console.log("Hi");}
+	</script>
+</head>
+<body>
+	<div id="aData"></div>
+	<div id="btData"></div>
+	<ul id="p"><li id="actionBar"><h3>Posts:</h3><p id="updText" class="fdOut">Post saved.</p><button id="refresh" onclick="genPosts()"><i class="material-icons">refresh</i></button><button id="create" onclick="editPost(-1)"><i class="material-icons">note_add</i></button></li><span id="rmPlz" style="margin:1%;font-style:italic;">Loading posts for user...</span></ul><!--
+	--><div id="editor"><!--<button id="refresh" onclick=""><i class="material-icons">save</i><div>Save</div></button><label for="title">Title: </label><input id="title" type="text"/><label for="content">Post: </label><textarea id="content" type="paragraph_text"></textarea>--></div>
+	<script>
+		firebase.database().ref().child("/BibleThoughts/admins").on('value',function(s){
+			eId("aData").innerHTML=JSON.stringify(s.val());
+		});
+		function toggleEditor(state){
+			/*0=posts 1=editor*/
+			if(state){
+				eId('p').style.display="none";
+				eId('editor').style.display="block";
+			}else{
+				eId('editor').style.display="none";
+				eId('p').style.display="block";
+			}
+		}
+		var templ="<li class=\"post\"><span>?title?</span><button onclick=\"delPost(?id?)\" id=\"del-?id?\"><i class=\"material-icons\">delete</i><button onclick=\"editPost(?id?)\" id=\"edi-?id?\"><i class=\"material-icons\">edit</i></button></button></li>"
+		var e="<button id=\"savePost\" onclick=\"savePost(?id?)\"><i class=\"material-icons\">save</i></button><button id=\"exitPost\" onclick=\"toggleEditor(0);\"><i class=\"material-icons\">close</i></button><label for=\"title\">Title: </label><input id=\"title\" type=\"text\" placeholder=\"Post Title\"/><label for=\"content\">Post: </label><textarea id=\"content\" type=\"paragraph_text\" placeholder=\"Lorem ipsum dolor sit amet...\"></textarea>";
+		var eText;
+		var postData;
+		function genPosts(){
+			firebase.database().ref().child("/BibleThoughts/posts").once('value',function(s){
+				eId('p').innerHTML="<li id=\"actionBar\"><h3>Posts:</h3><p id=\"updText\" class=\"fdOut\">Settings updated.</p><button id=\"refresh\" onclick=\"genPosts()\"><i class=\"material-icons\">refresh</i></button><button id=\"create\" onclick=\"editPost(0)\"><i class=\"material-icons\">note_add</i></button></li><span id=\"rmPlz\" style=\"margin:1%;font-style:italic;\">Loading posts for user...</span>";
+				var d=s.val();
+				eId("btData").innerHTML=JSON.stringify(d);
+				var uid=firebase.auth().currentUser.uid;
+				var insText="";
+				var t;
+				for(var i=Object.keys(d).length-1;i>=0;i--){
+					if(uid==Object.keys(d[Object.keys(d)[i]])[0]){
+						t=templ;
+						t=t.replace("?title?",Object.keys(d[Object.keys(d)[i]][Object.keys(d[Object.keys(d)[i]])[0]])[0]);
+						t=t.replace("?id?",Object.keys(d)[i]);
+						t=t.replace("?id?",Object.keys(d)[i]);
+						t=t.replace("?id?",Object.keys(d)[i]);
+						t=t.replace("?id?",Object.keys(d)[i]);
+						insText+=t;
+					}
+				}
+				eId('p').removeChild(eId('rmPlz'));
+				eId('p').innerHTML+=insText;
+			});
+		}
+		genPosts();
+		function delPost(id){
+			firebase.database().ref().child("/BibleThoughts/posts/"+id).remove(function(){genPosts();});
+			fade('updText','Post deleted.','red');
+		}
+		function editPost(id){
+			eText=e;
+			eText=eText.replace("?id?",id);
+			eId('editor').innerHTML=eText;
+			if(id>0){
+				firebase.database().ref().child("/BibleThoughts/posts/"+id).once('value',function(s){
+					var title=Object.keys(s.val()[Object.keys(s.val())])[0];
+					var con=s.val()[Object.keys(s.val())][Object.keys(s.val()[Object.keys(s.val())])[0]];
+					//console.log(title);
+					//console.log(con);
+					eId('title').value=title;
+					eId('content').value=con;
+				});
+			}
+			toggleEditor(1);
+		}
+		function savePost(id){
+			console.log("Saving ");
+			console.log(id);
+			if(id==0){
+				firebase.database().ref().child("/BibleThoughts/posts/").once('value',function(s){
+					//console.log(s.val().length);
+					postData={};
+					postData[eId('title').value]=eId('content').value;
+					console.log(postData);
+					firebase.database().ref().child('/BibleThoughts/posts/'+s.val().length+"/"+firebase.auth().currentUser.uid).set(postData).then(function(){
+						console.log("Post changed!");
+						genPosts();
+						editPost(s.val().length);
+					});
+				});
+			}else{
+				postData={};
+				postData[eId('title').value]=eId('content').value;
+				firebase.database().ref().child('/BibleThoughts/posts/'+id+"/"+firebase.auth().currentUser.uid).set(postData).then(function(){
+					console.log("Post changed!");
+					genPosts();
+				});
+			}
+			toggleEditor(0);
+		}
+	</script>
+</body>

@@ -20,11 +20,16 @@
 	<ul id="p"><li id="actionBar"><h3>Posts:</h3><p id="updText" class="fdOut">Post saved.</p><button id="refresh" onclick="genPosts()"><i class="material-icons">refresh</i><div>Refresh</div></button><button id="create" onclick="editPost(-1)"><i class="material-icons">create</i><div>New Post</div></button></li><span id="rmPlz" style="margin:1%;font-style:italic;">Loading posts for user...</span></ul><!--
 	--><div id="editor"><!--<button id="refresh" onclick=""><i class="material-icons">save</i><div>Save</div></button><label for="title">Title: </label><input id="title" type="text"/><label for="content">Post: </label><textarea id="content" type="paragraph_text"></textarea>--></div>
 	<script>
+		//Cory Gross - https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript
+		String.prototype.replaceAll = function(search, replacement) {
+		    var target = this;
+		    return target.split(search).join(replacement);
+		};
 		firebase.database().ref().child("/BibleThoughts/admins").on('value',function(s){
 			eId("aData").innerHTML=JSON.stringify(s.val());
 		});
 		var templ="<li class=\"post\"><span>?title?</span><button onclick=\"delPost(?id?)\" id=\"del-?id?\"><i class=\"material-icons\">delete</i><span>Delete</span><button onclick=\"editPost(?id?)\" id=\"edi-?id?\"><i class=\"material-icons\">edit</i><span>Edit</span></button></button></li>"
-		var e="<button id=\"savePost\" onclick=\"savePost(?id?)\"><i class=\"material-icons\">save</i><div>Save</div></button><label for=\"title\">Title: </label><input id=\"title\" type=\"text\"/><label for=\"content\">Post: </label><textarea id=\"content\" type=\"paragraph_text\"></textarea>";
+		var e="<button id=\"savePost\" onclick=\"savePost(?id?)\"><i class=\"material-icons\">save</i><div>Save</div></button><label for=\"title\">Title: </label><input id=\"title\" placeholder=\"Post Title\" type=\"text\"/><label for=\"content\">Post: </label><textarea id=\"content\" placeholder=\"Lorem ipsum dolor sit amet...\" type=\"paragraph_text\"></textarea>";
 		var eText;
 		var postData;
 		function genPosts(){
@@ -66,11 +71,8 @@
 					//console.log(title);
 					//console.log(con);
 					eId('title').value=title;
-					eId('content').value=con;
+					eId('content').value=con.replaceAll("<br/>","\n");
 				});
-			}else if(id==0){
-				eId('title').value="New Post";
-				eId('content').value="Lorem ipsum dolor sit amet...";
 			}
 		}
 		function savePost(id){
@@ -80,12 +82,12 @@
 				firebase.database().ref().child("/BibleThoughts/posts/").once('value',function(s){
 					//console.log(s.val().length);
 					postData={};
-					postData[eId('title').value]=eId('content').value;
+					postData[eId('title').value]=eId('content').value.replaceAll("\n","<br/>");
 					firebase.database().ref().child('/BibleThoughts/posts/'+s.val().length+"/"+firebase.auth().currentUser.uid).set(postData).then(function(){console.log("Post changed!");genPosts();editPost(s.val().length);});
 				});
 			}else{
 				postData={};
-				postData[eId('title').value]=eId('content').value;
+				postData[eId('title').value]=eId('content').value.replaceAll("\n","<br/>");
 				firebase.database().ref().child('/BibleThoughts/posts/'+id+"/"+firebase.auth().currentUser.uid).set(postData).then(function(){console.log("Post changed!");genPosts();});
 			}
 		}

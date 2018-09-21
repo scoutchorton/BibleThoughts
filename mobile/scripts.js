@@ -10,7 +10,7 @@ console.clear();firebase.initializeApp({apiKey:"AIzaSyA_nCeLJUNyXRGfzVXpPGJKUomp
 //Variables
 var db=firebase.database().ref();
 function eId(i){return document.getElementById(i)};
-var template="<div class=\"post\"><span>?title?</span><span>By ?author?</span><span>?message?</span></div>";
+var template="<div id=\"post-?id?\" class=\"post\"><span>?title?</span><span>By ?author?</span><span>?message?</span></div>";
 
 //Functions
 db.child("/BibleThoughts/admins").on('value',function(s){/*eId("aData").innerHTML=JSON.stringify(s.val(););*/
@@ -21,9 +21,12 @@ db.child("/BibleThoughts/admins").on('value',function(s){/*eId("aData").innerHTM
 		for(var i=Object.keys(d).length-1;i>=0;i--){
 			var pI=Object.keys(d)[i];
 			var pD=d[pI];var aI=Object.keys(pD)[0];var aN=aD[aI];var pT=Object.keys(pD[aI])[0];var pC=pD[aI][pT];
-			t=template;t=t.replace("?message?",pC.replaceAll('\n','<br/>'));t=t.replace("?title?",pT);
+			t=template;t=t.replace("?message?",pC);t=t.replace("?id?",Object.keys(d)[i]);t=t.replace("?title?",pT);
 			if(aN!==undefined){t=t.replace("?author?",aN);}else{t=t.replace("?author?","unknown author")}
 			eId("posts").innerHTML+=t;
+		}
+		if(location.href.indexOf('#')>-1){
+			eId(location.href.split('#')[1]).scrollIntoView();
 		}
 	});
 });

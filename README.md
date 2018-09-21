@@ -5,6 +5,13 @@ Blog of multiple young authors, all posting Biblical related posts.
 
 
 # Change Log
+### v2.2
+
+**New Features**
+
+ - Shareable posts; posts have ID's stored in the Firebase databse, and now links will take you to the post directly with the link
+ - Links directed to posts will go even when converting between the desktop and mobile links
+
 ### v2.1
 
 **Changed Features**

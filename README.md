@@ -1,10 +1,24 @@
-![BibleThoughts Logo](./mobileIcon.png)
+![BibleThoughts Logo](./logo.svg)
 
 # BibleThoughts
 Blog of multiple young authors, all posting Biblical related posts.
 
 
 # Change Log
+### v2.3
+
+**New Features**
+
+ - Users can now copy the link of the sharable post.
+
+**Changed Features**
+
+ - BibleThoughts now takes advantage of JavaScript features learned since last update, like string templates, `for(item of array) {}`, and `location.hash`.
+
+**Removed Features**
+
+ - BibleThoughts v1.0 folder removed from repository. If you want to see the original code, go back to [this commit](https://github.com/scoutchorton/BibleThoughts/tree/d6e91397f02d6f321eb558aa1d2e0b0158b2afcf).
+
 ### v2.2
 
 **New Features**

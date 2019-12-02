@@ -1,7 +1,0 @@
-{000:["errorType", "Error description, and recommended fix."],
-100:["commandError", "100's are commandError and revolve around the prompt and commands provided."],
-101:["commandError", "Command not recognized. Retype the command, or enter 'help' to view commands."],
-102:["commandError", "Not enough arguments supplied. Enter 'help' to view the arguments for all the commands."],
-103:["commandError", "Argument not recognized. Please refer to 'help' to locate proper argument."],
-104:["commandError", "Argument not accepted. Refer to 'help' to find proper usage.'"]
-}

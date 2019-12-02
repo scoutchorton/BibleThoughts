@@ -5,28 +5,52 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 //Firebase init
-console.clear();firebase.initializeApp({apiKey:"AIzaSyA_nCeLJUNyXRGfzVXpPGJKUompqG4e1Yc",authDomain:"biblethoughts-7d344.firebaseapp.com",databaseURL:"https://biblethoughts-7d344.firebaseio.com",projectId:"biblethoughts-7d344",storageBucket:"biblethoughts-7d344.appspot.com",messagingSenderId:"65731658950"});
+console.clear();
+firebase.initializeApp({apiKey:"AIzaSyA_nCeLJUNyXRGfzVXpPGJKUompqG4e1Yc",authDomain:"biblethoughts-7d344.firebaseapp.com",databaseURL:"https://biblethoughts-7d344.firebaseio.com",projectId:"biblethoughts-7d344",storageBucket:"biblethoughts-7d344.appspot.com",messagingSenderId:"65731658950"});
 
 //Variables
-var db=firebase.database().ref();
 function eId(i){return document.getElementById(i)};
-var template="<div id=\"post-?id?\" class=\"post\"><span>?title?</span><span>By ?author?</span><span>?message?</span></div>";
 
-//Functions
-db.child("/BibleThoughts/admins").on('value',function(s){/*eId("aData").innerHTML=JSON.stringify(s.val(););*/
-	db.child('/BibleThoughts/posts/').on('value',function(z){
-		var d=z.val();
-		var aD=s.val();
-		eId("posts").innerHTML="";
-		for(var i=Object.keys(d).length-1;i>=0;i--){
-			var pI=Object.keys(d)[i];
-			var pD=d[pI];var aI=Object.keys(pD)[0];var aN=aD[aI];var pT=Object.keys(pD[aI])[0];var pC=pD[aI][pT];
-			t=template;t=t.replace("?message?",pC);t=t.replace("?id?",Object.keys(d)[i]);t=t.replace("?title?",pT);
-			if(aN!==undefined){t=t.replace("?author?",aN);}else{t=t.replace("?author?","unknown author")}
-			eId("posts").innerHTML+=t;
+	//Variables
+
+	//Functions
+	//Firebase management
+var db = firebase.database().ref();	//Reference to Firebase database
+db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get data from admins and run code on udpate
+	db.child('/BibleThoughts/posts/').on('value',function(postsResponse) {	//Get data from posts and run code on update
+		var postsData = postsResponse.val();	//Data from posts
+		//postsData = postsData.slice(1);	//Sets the post data to all but the first post (which is empty)
+		//postsData.reverse()	//Reverse the order of the elements in the posts
+		var adminData = adminResponse.val();	//Data from admins
+		eId("posts").innerHTML = "";	//Reset HTML inside posts element
+		let id = 0	//Start counter for the id of the post
+		console.log(postsData)
+		for(let postData of postsData) {	//Iterate though all posts data (except the first because there is no data), also https://flaviocopes.com/how-to-get-index-in-for-of-loop/
+			console.log(postData)
+			if(postData) {	//If there is data for that post
+				var authorID = Object.keys(postData)[0];	//Get the ID of the author from the post information
+				postData = postData[authorID];	//Sets the post data to the data at the ID
+				var authorName = adminData[authorID];	//Get the name of the author from the author data
+				var postTitle = Object.keys(postData)[0];	//Get the key of the data
+				var postContent = postData[postTitle];	//Get the data at the post's title
+				eId("posts").innerHTML = `<div id=\"post-${id}\" class=\"post\"><span>${postTitle}<i onclick="copy(this)" class="material-icons">link</i></span><span>By ${(authorName) ? authorName : "unknown author"}</span><span>${postContent}</span></div>` + eId('posts').innerHTML;	//Gets the HTML for the post using string templates
+			}
+			id += 1;	//Increase the id counter
 		}
-		if(location.href.indexOf('#')>-1){
-			eId(location.href.split('#')[1]).scrollIntoView();
+		if(location.hash){	//If the URL has an id to scroll to
+			eId(location.hash.substring(1)).scrollIntoView();	//Scroll to that post's id
 		}
 	});
 });
+
+	//Copy link to clipboard for that post
+function copy(element) {
+	console.log(element.parentElement.parentElement.id);
+	location.hash = element.parentElement.parentElement.id;	//Set the hash (id to go to) to the id of the post
+	console.log(location.href)
+	eId('copyme').value = location.href;	//Take advantage of offscreen notification element to set the url to go to
+	eId('copyme').select();	//Select the notification
+	eId('copyme').setSelectionRange(0,99999);	//Mobile compatability
+	document.execCommand('copy');	//Copy the text
+	alert('Link copied!')
+}

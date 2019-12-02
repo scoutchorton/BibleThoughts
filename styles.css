@@ -66,20 +66,46 @@ body {
 	padding: 1%;
 }
 .post {
+	display: flex;
+	flex-direction: column;
 	border: 1px solid var(--amb);
 	margin: 1px 0;
 }
-.post h2 {
-	display: inline-block;
+.post span {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.post span::before {
+	flex-grow: 1;
+	order: 2;
+	content: "";
+}
+.post p, .post span * {
 	margin: 5px;
 }
-.post h4 {
+.post span i {
+	order: 3;
+	padding: 2px;
+	color: var(--amb);
+	background: var(--white);
+}
+.post span i:hover {
+	color: var(--ora);
+	background: var(--amb);
+}
+.post span h4 {
 	color: grey;
-	display: inline-block;
-	vertical-align: middle;
-	margin: 5px;
 }
 .post p {
-	margin: 5px;
 	margin-left: 25px;
+}
+.post p iframe {
+	margin: 4px;
+	max-width: calc(100% - 8px);
+}
+
+#copyme {
+	top: -100%;
+	position: absolute;
 }

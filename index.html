@@ -2,11 +2,7 @@
 	<head>
 		<script>
 			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-				if(location.href.indexOf('#')>-1){
-					location.replace('./mobile/m.html#'+location.href.split('#')[1]);
-				}else{
-					location.replace('./mobile/m.html');
-				}
+				location.replace(`./mobile/m.html${location.hash}`);
 			}
 		</script>
 		<!--Firebase Start-->
@@ -23,28 +19,10 @@
 		<title>BibleThoughts</title>
 	</head>
 	<body>
-		<div id="aData"></div>
-		<div id="fbData"></div>
+		<input type="text" id="copyme" value="https://scoutchorton.io/BibleThoughts"></input>
 		<div id="page">
 			<div id="header">
 				<h3>BibleThoughts</h3><a  href="./author/login.html"><div id="admin">Editor Login</div></a>
-				<!--<ul id="nav">
-					<li class="navSpacer">:<li>
-					<li class="navOption">All</li>
-					<li class="navSpacer">:<li>
-					<li class="navOption">Anna</li>
-					<li class="navSpacer">:<li>
-					<li class="navOption">Caleb</li>
-					<li class="navSpacer">:<li>
-					<li class="navOption">Daniel</li>
-					<li class="navSpacer">:<li>
-					<li class="navOption">Jordan</li>
-					<li class="navSpacer">:<li>
-					<li class="navOption">Molly</li>
-					<li class="navSpacer">:<li>
-					<li class="navOption">Noah</li>
-					<li class="navSpacer">:<li>
-				</ul>-->
 			</div>
 			<div id="posts">Loading posts...<div>
 		</div>

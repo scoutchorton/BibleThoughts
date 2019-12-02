@@ -1,4 +1,4 @@
-![BibleThoughts Logo](./mobileIcon.png)
+![BibleThoughts Logo](./logo.svg)
 
 # BibleThoughts
 Blog of multiple young authors, all posting Biblical related posts.
@@ -13,7 +13,7 @@ Blog of multiple young authors, all posting Biblical related posts.
 
 **Changed Features**
 
- - BibleThoughts now takes advantage of JavaScript features learned since last update, like string templates, `for(item in array) {}`, and `location.hash`.
+ - BibleThoughts now takes advantage of JavaScript features learned since last update, like string templates, `for(item of array) {}`, and `location.hash`.
 
 **Removed Features**
 

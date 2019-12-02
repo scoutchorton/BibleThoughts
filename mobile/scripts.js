@@ -19,8 +19,6 @@ var db = firebase.database().ref();	//Reference to Firebase database
 db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get data from admins and run code on udpate
 	db.child('/BibleThoughts/posts/').on('value',function(postsResponse) {	//Get data from posts and run code on update
 		var postsData = postsResponse.val();	//Data from posts
-		//postsData = postsData.slice(1);	//Sets the post data to all but the first post (which is empty)
-		//postsData.reverse()	//Reverse the order of the elements in the posts
 		var adminData = adminResponse.val();	//Data from admins
 		eId("posts").innerHTML = "";	//Reset HTML inside posts element
 		let id = 0	//Start counter for the id of the post

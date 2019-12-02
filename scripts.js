@@ -44,9 +44,7 @@ db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get dat
 
 	//Copy link to clipboard for that post
 function copy(element) {
-	console.log(element.parentElement.parentElement.id);
 	location.hash = element.parentElement.parentElement.id;	//Set the hash (id to go to) to the id of the post
-	console.log(location.href)
 	eId('copyme').value = location.href;	//Take advantage of offscreen notification element to set the url to go to
 	eId('copyme').select();	//Select the notification
 	eId('copyme').setSelectionRange(0,99999);	//Mobile compatability

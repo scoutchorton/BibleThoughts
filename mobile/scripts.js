@@ -24,9 +24,7 @@ db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get dat
 		var adminData = adminResponse.val();	//Data from admins
 		eId("posts").innerHTML = "";	//Reset HTML inside posts element
 		let id = 0	//Start counter for the id of the post
-		console.log(postsData)
 		for(let postData of postsData) {	//Iterate though all posts data (except the first because there is no data), also https://flaviocopes.com/how-to-get-index-in-for-of-loop/
-			console.log(postData)
 			if(postData) {	//If there is data for that post
 				var authorID = Object.keys(postData)[0];	//Get the ID of the author from the post information
 				postData = postData[authorID];	//Sets the post data to the data at the ID
@@ -45,9 +43,7 @@ db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get dat
 
 	//Copy link to clipboard for that post
 function copy(element) {
-	console.log(element.parentElement.parentElement.id);
 	location.hash = element.parentElement.parentElement.id;	//Set the hash (id to go to) to the id of the post
-	console.log(location.href)
 	eId('copyme').value = location.href;	//Take advantage of offscreen notification element to set the url to go to
 	eId('copyme').select();	//Select the notification
 	eId('copyme').setSelectionRange(0,99999);	//Mobile compatability

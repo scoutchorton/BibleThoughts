@@ -29,7 +29,10 @@ db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get dat
 				var authorName = adminData[authorID];	//Get the name of the author from the author data
 				var postTitle = Object.keys(postData)[0];	//Get the key of the data
 				var postContent = postData[postTitle];	//Get the data at the post's title
-				eId("posts").innerHTML = `<div id=\"post-${id}\" class=\"post\"><span>${postTitle}<i onclick="copy(this)" class="material-icons">link</i></span><span>By ${(authorName) ? authorName : "unknown author"}</span><span>${postContent}</span></div>` + eId('posts').innerHTML;	//Gets the HTML for the post using string templates
+				let postElement = document.createElement('div');
+				postElement.innerHTML = `<div id=\"post-${id}\" class=\"post\"><span>${postTitle}<i onclick="copy(this)" class="material-icons">link</i></span><span>By ${(authorName) ? authorName : "unknown author"}</span><span></span></div>`;	//Gets the HTML for the post using string templates
+				postElement.children[0].children[2].innerHTML = postContent
+				let afterElemenet = eId("posts").insertBefore(postElement.children[0], (eId("posts").childElementCount)? eId("posts").children[0] : null)
 			}
 			id += 1;	//Increase the id counter
 		}
@@ -41,10 +44,14 @@ db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get dat
 
 	//Copy link to clipboard for that post
 function copy(element) {
-	location.hash = element.parentElement.parentElement.id;	//Set the hash (id to go to) to the id of the post
-	eId('copyme').value = location.href;	//Take advantage of offscreen notification element to set the url to go to
-	eId('copyme').select();	//Select the notification
-	eId('copyme').setSelectionRange(0,99999);	//Mobile compatability
-	document.execCommand('copy');	//Copy the text
-	alert('Link copied!')
+	try {
+		location.hash = element.parentElement.parentElement.id;	//Set the hash (id to go to) to the id of the post
+		eId('copyme').value = location.href;	//Take advantage of offscreen notification element to set the url to go to
+		eId('copyme').select();	//Select the notification
+		eId('copyme').setSelectionRange(0,99999);	//Mobile compatability
+		document.execCommand('copy');	//Copy the text
+		alert('Link copied!');
+		eId('copyme').blur();
+	} catch(e) {
+	}
 }

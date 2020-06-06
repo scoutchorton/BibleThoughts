@@ -5,6 +5,15 @@ Blog of multiple young authors, all posting Biblical related posts.
 
 
 # Change Log
+### v2.4
+**New Features**
+
+ - Users can upload photos and add them to documents.
+
+**Changed Features**
+
+ - Modified the method for inputing data into posts, which should clean up the appearance.
+
 ### v2.3
 
 **New Features**

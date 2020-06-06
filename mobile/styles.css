@@ -81,9 +81,17 @@ a{text-decoration:none;}
 .post span:nth-child(2)/*Author*/ {
 	font-size:1.2em;
 }
-.post span:nth-child(3)/*Message*/ {
+.post span:nth-child(3)/*Message*/{
 	font-size:1.1em;
 	color:var(--gre);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.post span:nth-child(3) img/*Message image*/{
+	margin: 4px;
+	max-width: calc(100% - 8px);
+	align-self: center;
 }
 .post span:nth-child(3) iframe {
 	margin: 4px;

@@ -33,9 +33,85 @@ input{font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
 #editor{width:50%;height:100%;display:inline-block;border:none;padding:2%;box-sizing: border-box;}
 #editor input,#content{display:block;margin: 4px;box-shadow:0 0 5px 4px #dfdfdf;background:#dfdfdf;border:none;}
 #editor input:focus,#content:focus{outline:none;}
-#content{width:75%;height:75%;resize:none;font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
+#content{width:75%;resize:none;font-family:"Ubuntu",cursive,sans-serif;font-size:10pt;padding:1px;}
+#content img{max-height: 5em;max-width:5em;display:block;}
 #editor button{display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;padding:3px;}
 #editor button i{font-size:16px;padding:1px;vertical-align:middle;}
 #editor button:hover{background:#ffffff;color:#000000;}
 #editor button:active{border:none;}
 #editor button:focus{outline:none;}
+
+#imageUploader {
+	display: flex;
+	position: absolute;
+	max-width: 75%;
+	background: white;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 1em;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	user-select: none;
+}
+#imageUploader.hidden {
+	display: none;
+}
+#imageUploader h3 {
+	display: flex;
+	align-items: center;
+	margin: 0.5em;
+}
+#imageUploader #imageUploaderPool {
+	/*margin: 0.5em;*/
+	margin: 0;
+	width: 100%;
+}
+#imageUploader #imageUploaderPool li {
+	border-bottom: 1px solid grey;
+	background: lightgrey;
+	/*padding: 0.25em;*/
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+#imageUploader #imageUploaderPool li i {
+	color: black;
+	transition: color 250ms;
+}
+#imageUploader #imageUploaderPool li i:hover {
+	color: red;
+	transition: color 250ms;
+}
+#imageUploader #imageUploaderPool li:first-child {
+	border-top: 1px solid grey;
+}
+#imageUploader #imageUploaderPool li input[type=checkbox] {
+	display: none;
+}
+#imageUploader #imageUploaderPool li input[type=checkbox] + label::before {
+	content: 'check_box_outline_blank';
+	font-family: 'Material Icons';
+	font-size: 12pt;
+}
+#imageUploader #imageUploaderPool li input[type=checkbox]:checked + label::before {
+	content: 'check_box';
+}
+#imageUploader #imageUploaderToolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+#imageUploader #imageUploaderToolbar button {
+	margin: 0.5em;
+}
+#imageUploader button, #imageUploader h3 .material-icons {display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;padding:3px;margin:0;}
+#imageUploader h3 .material-icons {height: 16px; width: 16px; margin: 0.5em;}
+#imageUploader button i, #imageUploader h3 .material-icons {font-size:16px;padding:1px;vertical-align:middle;}
+#imageUploader button:hover, #imageUploader h3 .material-icons:hover {background:#ffffff;color:#000000;}
+#imageUploader button:active, #imageUploader h3 .material-icons:active {border:none;}
+#imageUploader button:focus, #imageUploader h3 .material-icons:focus {outline:none;}
+
+#uploadImage {display: none;}

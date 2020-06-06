@@ -30,10 +30,14 @@ db.child("/BibleThoughts/admins").on('value',function(adminResponse) {	//Get dat
 				var authorName = adminData[authorID];	//Get the name of the author from the author data
 				var postTitle = Object.keys(postData)[0];	//Get the key of the data
 				var postContent = postData[postTitle];	//Get the data at the post's title
-				eId("posts").innerHTML = `<div id="post-${id}" class="post"><span><h2>${postTitle}</h2><h4>by ${(authorName) ? authorName : "unknown author"}</h4><i onclick="copy(this)" class="material-icons">link</i></span><p>${postContent}</p></div>` + eId('posts').innerHTML;	//Gets the HTML for the post using string templates
+				let postElement = document.createElement('div');
+				postElement.innerHTML = `<div id="post-${id}" class="post"><span><h2>${postTitle}</h2><h4>by ${(authorName) ? authorName : "unknown author"}</h4><i onclick="copy(this)" class="material-icons">link</i></span><p></p></div>` + eId('posts').innerHTML;	//Gets the HTML for the post using string templates
+				postElement.children[0].children[1].innerHTML = postContent
+				let afterElemenet = eId("posts").insertBefore(postElement.children[0], (eId("posts").childElementCount)? eId("posts").children[0] : null)
 			}
 			id += 1;	//Increase the id counter
 		}
+		//console.log(postsData[]);
 		if(location.hash){	//If the URL has an id to scroll to
 			eId(location.hash.substring(1)).scrollIntoView();	//Scroll to that post's id
 		}
@@ -47,5 +51,6 @@ function copy(element) {
 	eId('copyme').select();	//Select the notification
 	eId('copyme').setSelectionRange(0,99999);	//Mobile compatability
 	document.execCommand('copy');	//Copy the text
-	alert('Link copied!')
+	alert('Link copied!');
+	eId('copyme').blur();
 }

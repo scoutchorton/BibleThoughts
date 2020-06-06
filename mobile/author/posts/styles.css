@@ -19,7 +19,7 @@ input{font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
 #refresh:hover,#create:hover{background:#ffffff;color:#000000;}
 #refresh:active,#create:active{border:none;}
 #refresh:focus,#create:focus{outline:none;}
-#refresh i,#create i,#savePost i,#exitPost i{padding:1%;font-size:2.75em;}
+#refresh i,#create i,#savePost i,#exitPost i,#mngImages i{padding:0.1em;font-size:2.5em;}
 
 .post{border-bottom:1px solid grey;width:98%;margin-top:1%;margin-left:1%;overflow:overlay;}
 .post span{display:inline-block;vertical-align:middle;overflow:hidden;font-size:1.2em;}
@@ -29,11 +29,93 @@ input{font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
 .post button:active{border:none;}
 .post button:focus{outline:none;}
 
-#editor{width:100%;height:100%;display:inline-block;border:none;padding:2%;box-sizing: border-box;display:none;}
-#editor input,#content{display:block;margin: 4px;-webkit-appearance: none;box-shadow:0 0 5px 4px #dfdfdf;background:#dfdfdf;border:none;}
+#editor{width:100%;height:100%;display:inline-block;border:none;padding:2%;box-sizing: border-box;display:none;font-size:12pt;}
+#editor input,#content{display:block;margin: 4px;-webkit-appearance: none;box-shadow:0 0 5px 4px #dfdfdf;background:#dfdfdf;border:none;font-size:12pt;}
 #editor input:focus,#content:focus{outline:none;}
-#content{width:75%;height:75%;resize:none;font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
-#editor button{display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;padding:3px;}
-#editor button:hover{background:#ffffff;color:#000000;}
-#editor button:active{border:none;}
-#editor button:focus{outline:none;}
+#content{width:75%;resize:none;font-family:"Ubuntu",cursive,sans-serif;padding:1px;}
+#content img{max-height: 5em;max-width:5em;display:block;}
+#editor #editorToolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+#editor #editorToolbar button{display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;padding:0.1em;}
+/*#editor #editorToolbar button i{margin: 0.1em;font-size:1.5em;}*/
+#editor #editorToolbar button:hover{background:#ffffff;color:#000000;}
+#editor #editorToolbar button:active{border:none;}
+#editor #editorToolbar button:focus{outline:none;}
+
+#imageUploader {
+	display: flex;
+	position: absolute;
+	background: white;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	user-select: none;
+}
+#imageUploader.hidden {
+	display: none;
+}
+#imageUploader h2 {
+	display: flex;
+	align-items: center;
+	margin: 0.5em;
+}
+#imageUploader #imageUploaderPool {
+	/*margin: 0.5em;*/
+	margin: 0;
+	width: 100%;
+	font-size: 14pt;
+}
+#imageUploader #imageUploaderPool li {
+	border-bottom: 1px solid grey;
+	background: lightgrey;
+	/*padding: 0.25em;*/
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+#imageUploader #imageUploaderPool li i {
+	color: black;
+	transition: color 250ms;
+}
+#imageUploader #imageUploaderPool li i:hover {
+	color: red;
+	transition: color 250ms;
+}
+#imageUploader #imageUploaderPool li:first-child {
+	border-top: 1px solid grey;
+}
+#imageUploader #imageUploaderPool li input[type=checkbox] {
+	display: none;
+}
+#imageUploader #imageUploaderPool li input[type=checkbox] + label::before {
+	content: 'check_box_outline_blank';
+	font-family: 'Material Icons';
+	font-size: 12pt;
+}
+#imageUploader #imageUploaderPool li input[type=checkbox]:checked + label::before {
+	content: 'check_box';
+}
+#imageUploader #imageUploaderToolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+#imageUploader #imageUploaderToolbar button {
+	margin: 0.5em;
+}
+#imageUploader button, #imageUploader h3 .material-icons {display:block;vertical-align:middle;background:#000000;color:#ffffff;border:none;padding:3px;margin:0;}
+#imageUploader h3 .material-icons {height: 16px; width: 16px; margin: 0.5em;}
+#imageUploader button i, #imageUploader h3 .material-icons {font-size:3em;padding:1px;vertical-align:middle;}
+#imageUploader button:hover, #imageUploader h3 .material-icons:hover {background:#ffffff;color:#000000;}
+#imageUploader button:active, #imageUploader h3 .material-icons:active {border:none;}
+#imageUploader button:focus, #imageUploader h3 .material-icons:focus {outline:none;}
+
+#uploadImage {display: none;}

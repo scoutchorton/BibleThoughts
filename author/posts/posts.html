@@ -1,9 +1,10 @@
 <head>
 	<!--Firebase Start-->
-	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-storage.js"></script>
 	<!--Firebase End-->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -17,8 +18,36 @@
 <body>
 	<div id="aData"></div>
 	<div id="btData"></div>
-	<ul id="p"><li id="actionBar"><h3>Posts:</h3><p id="updText" class="fdOut">Post saved.</p><button id="refresh" onclick="genPosts()"><i class="material-icons">refresh</i><div>Refresh</div></button><button id="create" onclick="editPost(-1)"><i class="material-icons">create</i><div>New Post</div></button></li><span id="rmPlz" style="margin:1%;font-style:italic;">Loading posts for user...</span></ul><!--
-	--><div id="editor"><!--<button id="refresh" onclick=""><i class="material-icons">save</i><div>Save</div></button><label for="title">Title: </label><input id="title" type="text"/><label for="content">Post: </label><textarea id="content" type="paragraph_text"></textarea>--></div>
+	<ul id="p">
+		<li id="actionBar">
+			<h3>Posts:</h3>
+			<p id="updText" class="fdOut">Post saved.</p>
+			<button id="refresh" onclick="genPosts()"><i class="material-icons">refresh</i><div>Refresh</div></button>
+			<button id="create" onclick="editPost(-1)"><i class="material-icons">create</i><div>New Post</div></button>
+		</li>
+		<span id="rmPlz" style="margin:1%;font-style:italic;">Loading posts for user...</span>
+	</ul><!--
+	--><div id="editor">
+		<!--<button id="savePost" onclick="savePost(39)"><i class="material-icons">save</i><div>Save</div></button>
+		<button id="mngImages" onclick="uploadImage()"><i class="material-icons">image</i><div>Images</div></button>
+		<label for="title">Title: </label>
+		<input id="title" placeholder="Post Title" type="text">
+		<label>Post: </label>
+		<div id="content" contenteditable></div>-->
+	</div>
+	<div id="imageUploader" class="hidden">
+		<h3><i class="material-icons" style="opacity: 0;">close</i>Image Manager <i id="imageUploaderClose" class="material-icons">close</i></h3>
+		<template id="poolItem">
+			<li><input type="checkbox" id="?ID?" name="imageUploaderPool"><label for="?ID?">?NAME?</label><i class="material-icons">delete</i></li>
+		</template>
+		<ul id="imageUploaderPool">
+		</ul>
+		<div id="imageUploaderToolbar">
+			<button id="newImage"><i class="material-icons">add_photo_alternate</i><div>Upload</div></button>
+			<button id="insertImage"><i class="material-icons">image</i><div>Insert</div></button>
+		</div>
+	</div>
+	<input type="file" accept="image/*" id="uploadImage"/>
 	<script>
 		//Cory Gross - https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript
 		String.prototype.replaceAll = function(search, replacement) {
@@ -29,9 +58,105 @@
 			eId("aData").innerHTML=JSON.stringify(s.val());
 		});
 		var templ="<li class=\"post\"><span>?title?</span><button onclick=\"delPost(?id?)\" id=\"del-?id?\"><i class=\"material-icons\">delete</i><span>Delete</span><button onclick=\"editPost(?id?)\" id=\"edi-?id?\"><i class=\"material-icons\">edit</i><span>Edit</span></button></button></li>"
-		var e="<button id=\"savePost\" onclick=\"savePost(?id?)\"><i class=\"material-icons\">save</i><div>Save</div></button><label for=\"title\">Title: </label><input id=\"title\" placeholder=\"Post Title\" type=\"text\"/><label for=\"content\">Post: </label><textarea id=\"content\" placeholder=\"Lorem ipsum dolor sit amet...\" type=\"paragraph_text\"></textarea>";
+		var e="<button id=\"savePost\" onclick=\"savePost(?id?)\"><i class=\"material-icons\">save</i><div>Save</div></button><button id=\"mngImages\" onclick=\"uploadImage()\"><i class=\"material-icons\">image</i><div>Images</div></button><label for=\"title\">Title: </label><input id=\"title\" placeholder=\"Post Title\" type=\"text\"/><label for=\"content\">Post: </label><div id=\"content\" contenteditable></div>";
 		var eText;
 		var postData;
+
+		function uuid() {
+			//Adapted from https://stackoverflow.com/questions/105034/how-to-create-guid-uuid
+			return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+				var r = Math.random() * 16 | 0;
+				return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+			});
+		}
+
+		//HTML templates
+		function getTemplate(id) {
+			let t = eId(id);
+			return (t)? t.content.cloneNode(true) : false;
+		}
+
+		//Firebase Storage
+		var storage = firebase.storage();
+		var imagesData = {};
+		function refreshData() {
+			return new Promise((res, rej) => {
+				let c = storage.ref(firebase.auth().currentUser.uid);
+				c.listAll().then((data) => {
+					if(data.items.length > 0) {
+						imagesData = {};
+						while(eId('imageUploaderPool').children.length) {
+							eId('imageUploaderPool').children[0].remove()
+						}
+						data.items.forEach((i) => {
+							i.getMetadata().then((metadata) => {
+								i.getDownloadURL().then((URL) => {
+									imagesData[i.name] = URL;
+								});
+								let template = getTemplate('poolItem').children[0];
+								template.innerHTML = template.innerHTML.replace(/\?ID\?/g, i.name);
+								template.innerHTML = template.innerHTML.replace(/\?NAME\?/g, metadata.customMetadata.name);
+								template.lastElementChild.addEventListener('click', (e) => {
+									if(confirm(`Are you sure you want to delete ${e.target.previousElementSibling.innerText}`)) {
+										storage.ref(`${firebase.auth().currentUser.uid}/${e.target.previousElementSibling.previousElementSibling.id}`).delete();
+										refreshData();
+									}
+								});
+								eId('imageUploaderPool').append(template);
+								res();
+							});
+						});
+					} else {
+						res();
+					}
+				});
+			});
+		}
+
+		//Image manager
+		eId('insertImage').addEventListener('click', () => {
+			eId('imageUploader').classList.add('hidden');
+			for(let element of eId('imageUploaderPool').querySelectorAll(':checked')) {
+				let img = document.createElement('img');
+				img.src = imagesData[element.id];
+				img.alt = element.nextElementSibling.innerText;
+				eId('content').append(img);
+			}
+		});
+		eId('imageUploaderClose').addEventListener('click', () => {
+			eId('imageUploader').classList.add('hidden');
+		});
+		eId('newImage').addEventListener('click', () => {
+			eId('uploadImage').click();
+		});
+		eId('uploadImage').addEventListener('change', (e) => {
+			img = eId('uploadImage').files[0];
+			
+			if(!img) return 1;
+			if(img.type.substring(0,5) != "image") return 1;
+
+			let name = prompt(`Name (default: ${img.name})`);
+			if(name == null) return 1;
+			name = (name.match(/^\s*$/))? img.name : name;
+			
+			let id = uuid();
+			let c = storage.ref(`${firebase.auth().currentUser.uid}/${id}`);
+			if(Object.values(imagesData).indexOf(name) == -1) {
+				c.put(img, {customMetadata: {name: name}}).then(() => {
+					refreshData();
+				});
+			} else {
+				alert('Image already exists with that name.')
+			}
+			
+		});
+		function uploadImage() {
+			refreshData().then(() => {
+				eId('imageUploader').classList.remove('hidden');
+			});
+		}
+		
+		//Posts
 		function genPosts(){
 			firebase.database().ref().child("/BibleThoughts/posts").once('value',function(s){
 				eId('p').innerHTML="<li id=\"actionBar\"><h3>Posts:</h3><p id=\"updText\" class=\"fdOut\">Settings updated.</p><button id=\"refresh\" onclick=\"genPosts()\"><i class=\"material-icons\">refresh</i><div>Refresh</div></button><button id=\"create\" onclick=\"editPost(0)\"><i class=\"material-icons\">create</i><div>New Post</div></button></li><span id=\"rmPlz\" style=\"margin:1%;font-style:italic;\">Loading posts for user...</span>";
@@ -71,7 +196,13 @@
 					//console.log(title);
 					//console.log(con);
 					eId('title').value=title;
-					eId('content').value=con.replaceAll("<br/>","\n");
+					//console.log(con, "\n\n", con.replace(/\<br\/\>/g,"\n"), "\n\n", con)
+					console.log(con)
+					//con.replaceAll("<br/>","\n");
+					//eId('content').innerText = con.replace(/\<br\/\>/g,"\n");
+					eId('content').innerHTML = con;
+					console.log(eId('content'))
+					eId('content').innerHTML = eId('content').innerHTML.replace(/\x02\S+\x03/g,'<span style="display: none">$1</span>');
 				});
 			}
 		}
@@ -82,12 +213,12 @@
 				firebase.database().ref().child("/BibleThoughts/posts/").once('value',function(s){
 					//console.log(s.val().length);
 					postData={};
-					postData[eId('title').value]=eId('content').value.replaceAll("\n","<br/>");
+					postData[eId('title').value]=eId('content').innerHTML;
 					firebase.database().ref().child('/BibleThoughts/posts/'+s.val().length+"/"+firebase.auth().currentUser.uid).set(postData).then(function(){console.log("Post changed!");genPosts();editPost(s.val().length);});
 				});
 			}else{
 				postData={};
-				postData[eId('title').value]=eId('content').value.replaceAll("\n","<br/>");
+				postData[eId('title').value]=eId('content').innerHTML;
 				firebase.database().ref().child('/BibleThoughts/posts/'+id+"/"+firebase.auth().currentUser.uid).set(postData).then(function(){console.log("Post changed!");genPosts();});
 			}
 		}
